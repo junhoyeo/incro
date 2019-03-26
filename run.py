@@ -18,7 +18,7 @@ req = requests.get(f'{baseURL}/ingang', headers={
 ingangs = json.loads(req.text)['ingangs']
 pprint.pprint(ingangs)
 
-for ingang in ingangs:
+for ingang in reversed(ingangs):
   req = requests.post(f"{baseURL}/ingang/{ingang['idx']}", headers={
     'Authorization': f'Bearer {token}'
   })
