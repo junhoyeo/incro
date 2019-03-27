@@ -2,10 +2,12 @@ import json
 import pprint
 import requests
 
+secret = json.load(open('secret.json'))
 baseURL = 'http://dev-api.dimigo.in'
+
 req = requests.post(f'{baseURL}/auth', json={
-  'id': 'dimigofrontdev',
-  'password': json.load(open('secret.json'))['password']
+  'id': secret['id'],
+  'password': secret['password']
 })
 
 token = json.loads(req.text)['token']
