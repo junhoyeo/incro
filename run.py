@@ -22,12 +22,14 @@ ingangs = json.loads(req.text)['ingangs']
 pprint.pprint(ingangs)
 
 while(1):
-  for ingang in reversed(ingangs):
-    req = requests.post(f"{baseURL}/ingang/{ingang['idx']}", headers={
-      'Authorization': f'Bearer {token}'
-    })
-    req_code = req.status_code
-    print(req_code)
-    if req_code == 200: 
-      exit(0)
+  # for ingang in reversed(ingangs):
+  ingang = ingangs[1]
+  # print(ingang)
+  req = requests.post(f"{baseURL}/ingang/{ingang['idx']}", headers={
+    'Authorization': f'Bearer {token}'
+  })
+  req_code = req.status_code
+  print(req_code)
+  if req_code == 200: 
+    exit(0)
   sleep(1)
