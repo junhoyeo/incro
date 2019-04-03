@@ -11,16 +11,9 @@ parser.add_argument('-t', '--token', type=str, help='사용할 token')
 parser.add_argument('-i', '--idx', type=int, help='단일 신청; 신청할 인강실의 index')
 parser.add_argument('-p', '--perfer', type=int, help='모두 신청; 우선적으로 신청할 인강실의 index')
 args = parser.parse_args()
-
-# if args.idx:
-
-# try:
-#   request_time = int(sys.argv[1])
-# except:
-#   request_time = 2
+print(args)
 
 if args.idx != None:
-  # print(f'[*] running to get ingang #{request_time}')
   print(f'[*] {args.idx}번 인강실을 신청합니다.')
 elif args.perfer != None:
   print(f'[*] {args.perfer}번 인강실을 우선적으로 신청합니다.')
@@ -33,7 +26,7 @@ if not args.token:
   baseURL = 'http://dev-api.dimigo.in'
 
   req = requests.post(f'{baseURL}/auth', json={
-    'id': 'hanaro0704',
+    'id': secret['id'],
     'password': secret['password']
   })
 
@@ -77,6 +70,9 @@ def apply_ingang():
           print(req_code)
           if req_code == 200: 
             print(f'[+] {int(not args.perfer)}번 인강 신청 성공!')
+            exit(0)
+          elif req_code == 403:
+            print('[*] 모든 티켓을 사용했습니다.')
             exit(0)
     elif req_code == 403:
       print('[*] 모든 티켓을 사용했습니다.')
