@@ -66,8 +66,10 @@ def apply_ingang():
     req_code = _request_ingang(token, ingang)
     print(req_code)
     if req_code == 200: 
-      print(f'[+] {args.perfer}번 인강 신청 성공!')
-      if args.perfer != None: # perfer mode -> apply for unperfered option
+      if args.idx != None:
+        print(f'[+] {args.idx}번 인강 신청 성공!')
+      else: # perfer mode -> apply for unperfered option
+        print(f'[+] {args.perfer}번 인강 신청 성공!')
         ingang = ingangs[int(not args.perfer)] # unperfered option
         print('[*] 신청할 인강:', ingang)
         while 1:
@@ -76,12 +78,17 @@ def apply_ingang():
           if req_code == 200: 
             print(f'[+] {int(not args.perfer)}번 인강 신청 성공!')
             exit(0)
+    elif req_code == 403:
+      print('[*] 모든 티켓을 사용했습니다.')
+      exit(0)
     sleep(1)
 
 if __name__ == '__main__':
-  if (datetime.datetime.now() < datetime.datetime.now().replace(hour=8, minute=29, second=0, microsecond=0)):
-    schedule.every().day.at('08:30').do(apply_ingang())
+  if (datetime.datetime.now() < datetime.datetime.now().replace(hour=8, minute=30, second=0, microsecond=0)):
+    schedule.every().day.at('08:30').do(apply_ingang)
+    print('[!] 인강실 신청이 시작되는 08:30까지 대기합니다.')
     while 1:
       schedule.run_pending()
   else:
+    print('[!] 이미 인강실 신청이 시작되었어요. 지금부터 드랍을 기다리며 계속 신청을 시도합니다.')
     apply_ingang()
