@@ -21,6 +21,14 @@ else:
   parser.print_help()
   exit(0)
 
+request_max = 20
+request_count = 0
+
+def check_request():
+  if request_count == request_max:
+    exit(0)
+  request_count += 1
+
 if not args.token:
   secret = json.load(open('secret.json'))
   baseURL = 'http://dev-api.dimigo.in'
@@ -65,6 +73,7 @@ def apply_ingang():
         print(f'[+] {args.perfer}번 인강 신청 성공!')
         ingang = ingangs[int(not args.perfer)] # unperfered option
         print('[*] 신청할 인강:', ingang)
+        request_count = 0
         while 1:
           req_code = _request_ingang(token, ingang)
           print(req_code)
@@ -74,9 +83,12 @@ def apply_ingang():
           elif req_code == 403:
             print('[*] 모든 티켓을 사용했습니다.')
             exit(0)
+          check_request()
+          sleep(1)
     elif req_code == 403:
       print('[*] 모든 티켓을 사용했습니다.')
       exit(0)
+    check_request()
     sleep(1)
 
 if __name__ == '__main__':
