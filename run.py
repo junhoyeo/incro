@@ -25,9 +25,12 @@ request_max = 20
 request_count = 0
 
 def check_request():
-  if request_count == request_max:
-    exit(0)
-  request_count += 1
+  # global request_count
+  # global request_max
+  # if request_count == request_max:
+  #   exit(0)
+  # request_count += 1
+  pass
 
 if not args.token:
   secret = json.load(open('secret.json'))
@@ -49,12 +52,7 @@ def _request_ingang(token, ingang):
   })
   return req.status_code
 
-def apply_ingang():
-  req = requests.get(f'{baseURL}/ingang', headers={
-    'Authorization': f'Bearer {token}'
-  })
-
-  ingangs = json.loads(req.text)['ingangs']
+def apply_ingang(ingangs):
   pprint.pprint(ingangs)
 
   if args.idx != None:
@@ -92,11 +90,18 @@ def apply_ingang():
     sleep(1)
 
 if __name__ == '__main__':
+  req = requests.get(f'{baseURL}/ingang', headers={
+    'Authorization': f'Bearer {token}'
+  })
+
+  ingangs = json.loads(req.text)['ingangs']
+  pprint.pprint(ingangs)
+
   if (datetime.datetime.now() < datetime.datetime.now().replace(hour=8, minute=30, second=0, microsecond=0)):
-    schedule.every().day.at('08:30').do(apply_ingang)
+    schedule.every().day.at('08:30').do(apply_ingang, ingangs=ingangs)
     print('[!] 인강실 신청이 시작되는 08:30까지 대기합니다.')
     while 1:
       schedule.run_pending()
   else:
     print('[!] 이미 인강실 신청이 시작되었어요. 지금부터 드랍을 기다리며 계속 신청을 시도합니다.')
-    apply_ingang()
+    apply_ingang(ingangs)
