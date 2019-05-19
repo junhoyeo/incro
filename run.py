@@ -5,6 +5,7 @@ import datetime
 import requests
 import schedule
 import argparse
+from requests.exceptions import ConnectionError
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--token', type=str, help='사용할 token')
@@ -62,7 +63,12 @@ def apply_ingang(ingangs):
   print('[*] 신청할 인강:', ingang)
   
   while 1:
-    req_code = _request_ingang(token, ingang)
+    while 1:
+      try:
+        req_code = _request_ingang(token, ingang)
+        break
+      except ConnectionError:
+        print('[!] ConnectionError occurred')
     print(req_code)
     if req_code == 200: 
       if args.idx != None:
