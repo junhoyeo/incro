@@ -1,13 +1,32 @@
+<script>
+export default {
+  data () {
+    return {
+      form: {
+        id: 'hanaro0704',
+        ingang: 1
+      }
+    }
+  }
+}
+</script>
+
 <template>
   <div class="content">
     <div class="request">
       <h1>신청하기</h1>
-      <select class="request__input">
-        <option selected>1520 여준호</option>
+      <select
+        class="request__input"
+        v-model="form.id"
+      >
+        <option value="hanaro0704" selected>1520 여준호</option>
       </select>
-      <select class="request__input">
-        <option>1타임</option>
-        <option selected>2~3타임</option>
+      <select
+        class="request__input"
+        v-model.number="form.ingang"
+      >
+        <option :value="0">1타임</option>
+        <option :value="1" selected>2~3타임</option>
       </select>
       <button class="request__submit">
         인강실 신청
@@ -33,7 +52,7 @@
     border-radius: 50px;
     border: none;
     margin-bottom: 0.2em;
-    background: linear-gradient(to right, #ffc3a088, #FFAFBD88);
+    background-color: #f3f3f3;
   }
 
   &__submit {
@@ -41,9 +60,9 @@
     font-size: 1.2em;
     padding: 8px;
     border-radius: 50px;
-    background-color: black;
+    background: linear-gradient(to right, #ffc3a088, #FFAFBD88);
     border: none;
-    color: white;
+    color: black;
     cursor: pointer;
   }
 }
