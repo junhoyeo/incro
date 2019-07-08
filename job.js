@@ -1,11 +1,11 @@
 const CronJob = require('cron').CronJob;
 const ingang = require('./ingang');
-const secret = require('./secret.json');
+const secrets = require('./secrets.json');
 
 module.exports = new CronJob({
   cronTime: '0 0 7 * * *',
   onTick: function() {
-    secrets.array.forEach((secret) => {
+    secrets.forEach((secret) => {
       ingang.apply(secret, 2);
     });
   },
