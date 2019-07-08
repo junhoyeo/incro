@@ -1,4 +1,6 @@
 const ingang = require('./ingang');
-const secret = require('./secret.json');
+const secrets = require('./secrets.json');
 
-ingang.apply(secret, 2)
+secrets.forEach((secret) => {
+  ingang.apply(secret, 2);  
+});

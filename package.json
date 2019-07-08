@@ -1,7 +1,7 @@
 {
   "name": "incro",
   "version": "1.0.0",
-  "description": "",
+  "description": "fastest, stablest ingang auto-requestor in dimigo",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -12,6 +12,7 @@ module.exports = {
         return res.data.token
       })
   },
+
   async getIngangs (token) {
     return api.get('/ingang', {
       headers: {
@@ -22,6 +23,7 @@ module.exports = {
         return res.data.ingangs
       })
   },
+
   async requestIngang (ingang, token) {
     return api.post(`/ingang/${ingang.idx}`, {}, {
       headers: {
@@ -37,6 +39,7 @@ module.exports = {
         return err.response.status
       })
   },
+
   async apply (secret, time) {
     // time is 1 or 2
     this.getToken(secret.id, secret.password)

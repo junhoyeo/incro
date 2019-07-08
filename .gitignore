@@ -1,3 +1,4 @@
 .DS_Store
 secret.json
+secrets.json
 node_modules/
