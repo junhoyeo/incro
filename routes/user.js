@@ -27,7 +27,7 @@ router.post('/', function (req, res, _) {
         if (error) 
           res.status(500).json({ error });
         else
-          res.sendStatus(200);
+          res.status(200).json({ objectId: newUser._id });
       });
     }
   });

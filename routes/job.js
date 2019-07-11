@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
 const Job = require('../models/job');
 
 router.get('/', function (_, res, _) {
@@ -27,7 +26,7 @@ router.post('/', function (req, res, _) {
         if (error) 
           res.status(500).json({ error });
         else
-          res.sendStatus(200);
+          res.status(200).json({ objectId: newJob._id });
       });
     }
   });
@@ -43,6 +42,7 @@ router.delete('/:objectId', function (req, res, _) {
       res.sendStatus(404);
       return;
     }
+    res.sendStatus(200);
   });
 });
 
