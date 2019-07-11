@@ -42,17 +42,26 @@ module.exports = {
 
   async apply (secret, time) {
     // time is 1 or 2
-    return this.getToken(secret.id, secret.password)
+    this.getToken(secret.id, secret.password)
       .then((token) => {
         console.log(token)
-        return this.getIngangs(token)
+        this.getIngangs(token)
           .then((ingangs) => {
             console.log(ingangs)
-            return this.requestIngang(ingangs[time - 1], token)
-              .then((res) => {
-                console.log(res)       
-                return res       
-              })
+            if (time === 3) {
+              // 3 for all
+              ingangs.forEach((ingang) => {
+                this.requestIngang(ingang, token)
+                  .then((res) => {
+                    console.log(res)
+                  })
+              });
+            } else {
+              this.requestIngang(ingangs[time - 1], token)
+                .then((res) => {
+                  console.log(res)    
+                })
+            }
           })
       });
   }

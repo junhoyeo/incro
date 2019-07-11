@@ -16,6 +16,9 @@ router.post('/', function (req, res, _) {
   if (!user || !ingangTime || !ingangDate) {
     res.sendStatus(404);
     return;
+  } else if (![1, 2, 3].includes(ingangTime)) {
+    res.sendStatus(409);
+    return;
   }
   Job.find({ user, ingangTime, ingangDate }, function (error, jobs) {
     if (error || jobs.length) {
