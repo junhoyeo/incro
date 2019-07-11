@@ -14,7 +14,6 @@ router.get('/', function (_, res, _) {
 
 router.post('/', function (req, res, _) {
   const { body: { id, password, name } } = req;
-  console.log(id, password, name, req.body)
   if (!id || !password || !name) {
     res.sendStatus(404);
     return;
