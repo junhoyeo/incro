@@ -1,7 +1,7 @@
-const axios = require('axios')
+const axios = require('axios');
 const api = axios.create({
   baseURL: 'http://dev-api.dimigo.in/'
-})
+});
 
 module.exports = {
   async getToken (id, password) {
@@ -55,4 +55,4 @@ module.exports = {
         })
     });
   }
-}
+};
